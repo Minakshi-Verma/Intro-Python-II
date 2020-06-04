@@ -36,13 +36,9 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
-player1 = Player('Ronnie','outside')
-print(player1.name)
-print(player1)
-
-
-
+player1 = Player('Ronnie', 'outside')
+# print(player1.name)
+# print(player1)
 
 # Write a loop that:#
 # * Prints the current room name
@@ -54,5 +50,71 @@ print(player1)
 #
 # If the user enters "q", quit the game.
 
-for key in room:
-    print(key)
+while True:
+    print("Player current location:,", {player1.current_room})
+    #  '\n' "Player's current room description: ", {room['outside'].description})
+  
+    direction = input("enter direction: ") 
+     
+    if player1.current_room =="outside" and direction == "north":        
+        print("you reached the 'Foyer'!")
+        player1.current_room ="foyer"
+        
+        if player1.current_room =="foyer" and direction == "south":
+            print("You are back to 'Outside'!")
+            # player1.current_room ="outside"
+
+        elif player1.current_room =="foyer" and direction == "north":
+            print("You reached 'Overlook!")
+            player1.current_room ="overlook"
+
+            if player1.current_room =="overlook" and direction == "south":
+                print("You reached 'Foyer!")
+                # player1.current_room ="foyer"
+
+            elif player1.current_room =="overlook" and direction == "north":
+                print("Wrong move!")
+            elif player1.current_room =="overlook" and direction == "east":
+                print("Wrong move!")
+            elif player1.current_room =="overlook" and direction == "west":
+                print("Wrong move!")
+        elif player1.current_room =="foyer" and direction == "east":
+            print("You are now in room 'Narrow'!")
+            player1.current_room ="narrow"
+
+            if player1.current_room =="narrow" and direction == "west":
+                print("You reached 'Foyer!")
+                # player1.current_room ="foyer"
+
+            elif player1.current_room =="narrow" and direction == "east":
+                print("Wrong move!")
+            elif player1.current_room =="narrow" and direction == "north":
+                print("You reached 'Treasure'!")
+                # player1.current_room ="tresure"
+
+                if player1.current_room =="treasure" and direction == "south":
+                    print("You are back to 'Narrow'!")
+                    # player1.current_room ="narrow"
+
+                elif player1.current_room =="treasure" and direction == "north":
+                    print("Wrong move!")
+                elif player1.current_room =="treasure" and direction == "west":
+                    print("Wrong move!")
+                elif player1.current_room =="treasure" and direction == "east":
+                    print("Wrong move!")
+            elif player1.current_room =="narrow" and direction == "south":
+                print("Wrong move!")
+        elif player1.current_room =="foyer" and direction == "west":
+            print("invalid move!")
+    elif player1.current_room =="outside" and direction == "south":
+        print("Wrong move!")
+    elif player1.current_room =="outside" and direction == "east":
+        print("Wrong move!")
+    elif player1.current_room =="outside" and direction == "west":
+        print("Wrong move!")
+    if direction == "q":
+        print("You quit the game")
+        exit()  
+
+
+       
