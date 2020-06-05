@@ -5,20 +5,20 @@ import textwrap
 # Declare all the rooms
 
 room = {
-    'outside': Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", ["Key", "Sword"],
+    'outside': Room("Outside Cave Entrance","North of you, the cave mount beckons"),
 
-    'foyer': Room("Foyer", "Dim light filters in from the south. Dusty passages run north and east."),
+    'foyer': Room("Foyer", "Dim light filters in from the south. Dusty passages run north and east.",["key","sword", "flashlight"]),
 
-    'overlook': Room("Grand Overlook", "A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm."),
+    'overlook': Room("Grand Overlook", "A steep cliff appears before you, falling into the darkness. Ahead to the north, a light flickers in the distance, but there is no way across the chasm.", ["hammer","flashlight"]),
 
-    'narrow': Room("Narrow Passage", "The narrow passage bends here from west to north. The smell of gold permeates the air."),
+    'narrow': Room("Narrow Passage", "The narrow passage bends here from west to north. The smell of gold permeates the air.", ["nail","key"]),
 
-    'treasure': Room("Treasure Chamber", "You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south."),
+    'treasure': Room("Treasure Chamber", "You've found the long-lost treasure chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south.", ["sword","flashlight", "hammer"]),
 }
 
-print(room['outside'].name)
-print(room['outside'].avail_items)
+# print(room['outside'].name)
+# print(room['outside'].items)
+# print(room['foyer'].items)
 
 
 # Link rooms together
@@ -39,7 +39,7 @@ room['treasure'].connections["s"] = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 player1 = Player('Ronnie', room["outside"])
-print(player1.current_room.name)
+# print(player1.current_room.name)
 
 
 # Write a loop that:#
@@ -56,86 +56,28 @@ print(player1.current_room.name)
 
 user_is_playing = True
 while user_is_playing:
-    print(player1.current_room.name)
-    # print(player1.avail_items)
+    print(f'You are at: {player1.current_room.name}')
+    # print(player1.current_room.items)
     # print(player1.current_room.description)
     for line in textwrap.wrap(player1.current_room.description, width = 30):
         print(line)
-    direction_input = input("What direction do you want to go?: ")
-    add_item_input = input("Choose the item you like?Key/Sword?Flashlight/Backpack/Lightsaber/Hat/Nail/Hammer: ")
+    direction_input = input("Enter direction(s/n/e/w) first AND then type 'myGear: ")  
+    # print(f'You are in {player1.current_room.name}')     
+    if direction_input in "myGear":
+        player1.get_items()
+    if direction_input in "dropItem":
+        player1.drop_items()
     if direction_input in ["n", "s", "e", "w"]:
-        player1.move(direction_input).add_items(add_item_input)
-    else:
-        print("This is not the valid command")
-        user_is_playing = False
+        player1.move(direction_input)
+    if direction_input in "quit":
+        print("Thanks for playing. Goodbye!")
+        user_is_playing = False    
+else:
+    print("Thanks for playing. Goodbye!")
+    user_is_playing = False
 
 
 
 
 
-# while True:
-#     print("Player current location:", {player1.current_room}, '\n', "Player's current room description: ", {room['outside'].description})
-  
-#     direction = input("Enter move command('n', 's' , 'e' , 'w'): ") 
-     
-#     if player1.current_room =="outside" and direction == "n":        
-#         print("you reached the 'Foyer'!")
-#         player1.current_room ="foyer"          
-#     if player1.current_room =="foyer" and direction == "s":
-#             print("You are back to 'Outside'!")
-#             player1.current_room ="outside"
-#     elif player1.current_room =="foyer" and direction == "n":
-#             print("You reached 'Overlook!")
-#             player1.current_room ="overlook"
-#             if player1.current_room =="overlook" and direction == "s":
-#                 print("You reached 'Foyer!")
-#                 player1.current_room ="foyer"
-#             elif player1.current_room =="overlook" and direction == "n":
-#                 print("Wrong move!")
-#             elif player1.current_room =="overlook" and direction == "e":
-#                 print("Wrong move!")
-#             elif player1.current_room =="overlook" and direction == "w":
-#                 print("Wrong move!")
-#         elif player1.current_room =="foyer" and direction == "e":
-#             print("You are now in room 'Narrow'!")
-#             player1.current_room ="narrow"
-#             if player1.current_room =="narrow" and direction == "w":
-#                 print("You reached 'Foyer!")
-#                 player1.current_room ="foyer"
-#             elif player1.current_room =="narrow" and direction == "e":
-#                 print("Wrong move!")
-#             elif player1.current_room =="narrow" and direction == "n":
-#                 print("You reached 'Treasure'!")
-#                 player1.current_room ="tresure"
-#                 if player1.current_room =="treasure" and direction == "s":
-#                     print("You are back to 'Narrow'!")
-#                     player1.current_room ="narrow"
-#                 elif player1.current_room =="treasure" and direction == "n":
-#                     print("Wrong move!")
-#                 elif player1.current_room =="treasure" and direction == "w":
-#                     print("Wrong move!")
-#                 elif player1.current_room =="treasure" and direction == "e":
-#                     print("Wrong move!")
-#             elif player1.current_room =="narrow" and direction == "s":
-#                 print("Wrong move!")
-#         elif player1.current_room =="foyer" and direction == "w":
-#             print("invalid move!")
-#     elif player1.current_room =="outside" and direction == "s":
-#         print("Wrong move!")
-#     elif player1.current_room =="outside" and direction == "e":
-#         print("Wrong move!")
-#     elif player1.current_room =="outside" and direction == "w":
-#         print("Wrong move!")
-#     if direction == "q":
-#         print("Not a valid direction!")
-#         exit()  
 
-
-       
-# if parent is "mother":
-#     print("She is beautiful")
-#     if hair is "brown":
-#         print()
-# elif parent is "stepmother":
-#     print("something")
-# else:
